@@ -3,14 +3,14 @@
 import Link from "next/link";
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/irfannuha" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/irfan-nuha" },
   { label: "Dribbble", href: "https://dribbble.com/irfanwork" },
-  { label: "GitHub", href: "https://github.com/irfan-work" },
+  { label: "GitHub", href: "https://github.com/irfanNha" },
 ];
 
 const RESOURCE_LINKS = [
   { label: "Dashboard", href: "/dashboard" },
-  { label: "Docs", href: "https://irfanwork.com/docs", external: true },
+  { label: "Docs", href: "https://irfanwork.vercel.app/projects", external: true },
   { label: "Support", href: "mailto:hello@irfanwork.com" },
 ];
 
@@ -114,13 +114,11 @@ export function SiteFooter() {
       <div className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-2 px-4 py-5 text-xs uppercase tracking-[0.3em] text-[var(--color-muted)] md:flex-row md:items-center md:justify-between md:px-8">
           <span>
-            © {new Date().getFullYear()} Irfanwork Studio. Crafted in Indonesia.
+            © {new Date().getFullYear()} Irfanwork 
           </span>
           <div className="flex flex-wrap items-center gap-4 text-[0.65rem]">
-            <span>Minimal</span>
-            <span>Monochrome</span>
-            <span>Responsive</span>
-            <span>Fingerprinted</span>
+            <span>Secure & Anonymous</span>
+            <span>Fast & Reliable</span>
           </div>
         </div>
       </div>
