@@ -12,9 +12,7 @@ async function loadFingerprint(): Promise<
 
   if (!fpPromise) {
     fpPromise = import("@fingerprintjs/fingerprintjs").then((module) =>
-      module.load({
-        token: process.env.NEXT_PUBLIC_FINGERPRINT_KEY,
-      }),
+      module.load(),
     );
   }
 
