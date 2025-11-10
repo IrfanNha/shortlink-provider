@@ -15,7 +15,6 @@ export default function DashboardPage() {
   const { data: links, error: statsError, isLoading, mutate, isValidating } =
     useSWR<ShortlinkRecord[]>(
       visitorId ? `/api/stats?visitorId=${visitorId}` : null,
-      undefined,
       {
         revalidateOnReconnect: true,
         refreshInterval: 30_000,
