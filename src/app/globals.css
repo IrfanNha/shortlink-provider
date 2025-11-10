@@ -7,9 +7,11 @@
 
 body {
   font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
-  background-color: var(--color-bg);
+  background: var(--color-background);
   color: var(--color-text);
   margin: 0;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 h1,
@@ -21,7 +23,7 @@ h6 {
   font-family: var(--font-poppins), "Poppins", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
 }
 
 a {
@@ -29,6 +31,74 @@ a {
   text-decoration: none;
 }
 
-button {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtle-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease forwards;
+}
+
+.animate-scale-in {
+  animation: subtle-scale 0.45s ease forwards;
+}
+
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px -24px rgba(17, 17, 17, 0.35);
+}
+
+@keyframes overlay-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.sheet-overlay {
+  animation: overlay-show 0.35s ease;
+}
+
+.sheet-content {
+  animation: slide-in-right 0.4s ease;
 }

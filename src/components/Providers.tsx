@@ -3,6 +3,9 @@
 import { ReactNode } from "react";
 import { SWRConfig } from "swr";
 
+import { ThemeProvider } from "@/contexts/theme-context";
+import { VisitorProvider } from "@/contexts/visitor-context";
+
 function jsonFetcher<T>(input: string, init?: RequestInit): Promise<T> {
   return fetch(input, {
     headers: {
@@ -34,15 +37,19 @@ type ProvidersProps = {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <SWRConfig
-      value={{
-        fetcher: jsonFetcher,
-        revalidateOnFocus: false,
-        dedupingInterval: 1000,
-      }}
-    >
-      {children}
-    </SWRConfig>
+    <ThemeProvider>
+      <VisitorProvider>
+        <SWRConfig
+          value={{
+            fetcher: jsonFetcher,
+            revalidateOnFocus: false,
+            dedupingInterval: 1000,
+          }}
+        >
+          {children}
+        </SWRConfig>
+      </VisitorProvider>
+    </ThemeProvider>
   );
 }
 
