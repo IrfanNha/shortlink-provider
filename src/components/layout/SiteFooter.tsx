@@ -1,16 +1,19 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 
 const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/irfan-nuha" },
-  { label: "Dribbble", href: "https://dribbble.com/irfanwork" },
   { label: "GitHub", href: "https://github.com/irfanNha" },
 ];
 
 const RESOURCE_LINKS = [
   { label: "Dashboard", href: "/dashboard" },
-  { label: "Docs", href: "https://irfanwork.vercel.app/projects", external: true },
+  {
+    label: "Docs",
+    href: "https://irfanwork.vercel.app/projects",
+    external: true,
+  },
   { label: "Support", href: "mailto:hello@irfanwork.com" },
 ];
 
@@ -23,9 +26,9 @@ export function SiteFooter() {
             Irfanwork
           </p>
           <p className="text-sm leading-relaxed">
-            IW ShortLink adalah produk internal Irfanwork untuk
-            mengelola distribusi link pendek dengan pengalaman yang elegan,
-            minimalis, dan ramah kolaborasi.
+            IW ShortLink adalah produk internal Irfanwork untuk mengelola
+            distribusi link pendek dengan pengalaman yang elegan, minimalis, dan
+            ramah kolaborasi.
           </p>
         </div>
         <div className="space-y-3">
@@ -56,7 +59,7 @@ export function SiteFooter() {
                 rel="noreferrer"
                 className="transition hover:text-[var(--color-text)]"
               >
-                Vercel Deployment
+                Homepage
               </a>
             </li>
           </ul>
@@ -87,7 +90,7 @@ export function SiteFooter() {
                     {label}
                   </Link>
                 </li>
-              ),
+              )
             )}
           </ul>
         </div>
@@ -113,9 +116,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-2 px-4 py-5 text-xs uppercase tracking-[0.3em] text-[var(--color-muted)] md:flex-row md:items-center md:justify-between md:px-8">
-          <span>
-            © {new Date().getFullYear()} Irfanwork 
-          </span>
+          <span>© {new Date().getFullYear()} Irfanwork</span>
           <div className="flex flex-wrap items-center gap-4 text-[0.65rem]">
             <span>Secure & Anonymous</span>
             <span>Fast & Reliable</span>
@@ -125,4 +126,3 @@ export function SiteFooter() {
     </footer>
   );
 }
-
