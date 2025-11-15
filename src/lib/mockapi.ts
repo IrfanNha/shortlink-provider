@@ -1,5 +1,3 @@
-import { MOCKAPI_BASE } from "@/constants/api";
-
 export type ShortlinkRecord = {
   id: string;
   code: string;
@@ -23,18 +21,43 @@ export type ShortlinkUpdatePayload = Partial<
   Pick<ShortlinkRecord, "originalUrl" | "clickCount" | "lastClickedAt">
 >;
 
+/**
+ * Get MOCKAPI_BASE safely from env
+ * Throws error if env is not set
+ */
+function getMockApiBase(): string {
+  const base = process.env.NEXT_PUBLIC_MOCKAPI_URL;
+  if (!base) {
+    throw new Error(
+      "Environment variable NEXT_PUBLIC_MOCKAPI_URL is not set. Please add it to .env.local"
+    );
+  }
+  return base;
+}
+
 function buildUrl(endpoint: string): string {
-  const base = MOCKAPI_BASE.endsWith("/")
-    ? MOCKAPI_BASE.slice(0, -1)
-    : MOCKAPI_BASE;
+  const base = getMockApiBase().endsWith("/")
+    ? getMockApiBase().slice(0, -1)
+    : getMockApiBase();
   const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
   return `${base}${path}`;
 }
 
-async function request<T>(
-  endpoint: string,
-  init?: RequestInit,
-): Promise<T> {
+async function safeReadErrorMessage(
+  response: Response
+): Promise<string | null> {
+  try {
+    const body = (await response.json()) as {
+      message?: string;
+      error?: string;
+    };
+    return body.message ?? body.error ?? null;
+  } catch {
+    return null;
+  }
+}
+
+async function request<T>(endpoint: string, init?: RequestInit): Promise<T> {
   const url = buildUrl(endpoint);
   const response = await fetch(url, {
     headers: {
@@ -48,24 +71,17 @@ async function request<T>(
   if (!response.ok) {
     const message = await safeReadErrorMessage(response);
     throw new Error(
-      `MockAPI request failed (${response.status}) for ${url}: ${message ?? response.statusText}`,
+      `MockAPI request failed (${response.status}) for ${url}: ${
+        message ?? response.statusText
+      }`
     );
   }
 
   return response.json() as Promise<T>;
 }
 
-async function safeReadErrorMessage(response: Response): Promise<string | null> {
-  try {
-    const body = (await response.json()) as { message?: string; error?: string };
-    return body.message ?? body.error ?? null;
-  } catch {
-    return null;
-  }
-}
-
 export async function createShortlink(
-  data: ShortlinkCreatePayload,
+  data: ShortlinkCreatePayload
 ): Promise<ShortlinkRecord> {
   return request<ShortlinkRecord>("links", {
     method: "POST",
@@ -74,25 +90,22 @@ export async function createShortlink(
 }
 
 export async function getLinkByCode(
-  code: string,
+  code: string
 ): Promise<ShortlinkRecord | undefined> {
   const searchParams = new URLSearchParams({ code });
   const url = buildUrl(`links?${searchParams.toString()}`);
   const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     cache: "no-store",
   });
 
-  if (response.status === 404) {
-    return undefined;
-  }
-
+  if (response.status === 404) return undefined;
   if (!response.ok) {
     const message = await safeReadErrorMessage(response);
     throw new Error(
-      `MockAPI request failed (${response.status}) for ${url}: ${message ?? response.statusText}`,
+      `MockAPI request failed (${response.status}) for ${url}: ${
+        message ?? response.statusText
+      }`
     );
   }
 
@@ -102,7 +115,7 @@ export async function getLinkByCode(
 
 export async function updateLink(
   id: string,
-  updates: ShortlinkUpdatePayload,
+  updates: ShortlinkUpdatePayload
 ): Promise<ShortlinkRecord> {
   return request<ShortlinkRecord>(`links/${id}`, {
     method: "PUT",
@@ -111,28 +124,24 @@ export async function updateLink(
 }
 
 export async function getLinksByVisitor(
-  visitorId: string,
+  visitorId: string
 ): Promise<ShortlinkRecord[]> {
   const searchParams = new URLSearchParams({ visitorId });
   const url = buildUrl(`links?${searchParams.toString()}`);
   const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     cache: "no-store",
   });
 
-  if (response.status === 404) {
-    return [];
-  }
-
+  if (response.status === 404) return [];
   if (!response.ok) {
     const message = await safeReadErrorMessage(response);
     throw new Error(
-      `MockAPI request failed (${response.status}) for ${url}: ${message ?? response.statusText}`,
+      `MockAPI request failed (${response.status}) for ${url}: ${
+        message ?? response.statusText
+      }`
     );
   }
 
   return response.json() as Promise<ShortlinkRecord[]>;
 }
-
