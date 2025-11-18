@@ -32,8 +32,7 @@ export function SiteNavbar() {
   const { theme } = useTheme();
 
   // Tentukan logo berdasarkan tema
-  const logoSrc =
-    theme === "noir" ? "/icon-light.svg" : "/icon.svg";
+  const logoSrc = theme === "noir" ? "/logo/light.png" : "/dark.png";
 
   return (
     <header className="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-surface)]/90 backdrop-blur">
@@ -74,7 +73,7 @@ export function SiteNavbar() {
               >
                 {label}
               </Link>
-            ),
+            )
           )}
         </nav>
 
@@ -114,7 +113,7 @@ export function SiteNavbar() {
                         {label}
                       </Link>
                     </SheetClose>
-                  ),
+                  )
                 )}
               </div>
               <div className="mt-8 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4 text-xs text-[var(--color-muted-strong)]">
