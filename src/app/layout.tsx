@@ -26,7 +26,7 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: "IW ShortLink — Confident Friendly Short URLs",
+    default: "IW ShortLink by Irfanwork",
     template: "%s | IW ShortLink",
   },
   description:
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "IW ShortLink — Confident Friendly Short URLs",
+        alt: "IW ShortLink by Irfanwork",
       },
     ],
   },

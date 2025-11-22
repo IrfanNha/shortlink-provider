@@ -11,7 +11,7 @@ export default function Home() {
       <main className="flex flex-1 flex-col items-center">
         <section className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center gap-12 px-4 py-16 md:flex-row md:items-start md:justify-between md:px-8 md:py-24">
           <div className="flex max-w-xl flex-col gap-6 animate-fade-up">
-            <span className="text-xs uppercase tracking-wide text-(--color-muted)">
+            <span className="text-xs uppercase tracking-wider text-(--color-muted)">
               {"Irfanwork Shortlink [ IWSL ]"}
             </span>
             <h1 className="text-4xl font-semibold uppercase leading-tight tracking-[0.3em] text-(--color-text) md:text-5xl">
@@ -28,9 +28,7 @@ export default function Home() {
               <li className="rounded-md border border-(--color-border) bg-(--color-surface-soft) px-4 py-3">
                 Real-time click tracking
               </li>
-              <li className="rounded-md border border-(--color-border) bg-(--color-surface-soft) px-4 py-3">
-                Automatic visitor identification
-              </li>
+
             </ul>
           </div>
           <div className="w-full max-w-md animate-fade-up">
