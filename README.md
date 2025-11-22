@@ -59,13 +59,15 @@ Create a `.env.local` file:
 
 ```env
 NEXT_PUBLIC_BASE_URL=your_base_url_here
-NEXT_PUBLIC_MOCKAPI_URL=https://<your_mockapi>.mockapi.io/api/v1
+MOCKAPI_URL=https://<your_mockapi>.mockapi.io/api/v1
 NEXT_PUBLIC_FINGERPRINT_KEY=your_fingerprint_key_here
+INTERNAL_API_KEY=generate_a_random_api_key_for_external_access
 ```
 
 - `NEXT_PUBLIC_BASE_URL`: Base URL of the deployed application.
-- `NEXT_PUBLIC_MOCKAPI_URL`: MockAPI endpoint for storing shortlink data.
+- `MOCKAPI_URL`: MockAPI endpoint for storing shortlink data.
 - `NEXT_PUBLIC_FINGERPRINT_KEY`: FingerprintJS key (can use open-source for development).
+- `INTERNAL_API_KEY` : generate a random api key for external access
 
 ---
 
