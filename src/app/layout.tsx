@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
     url: process.env.NEXT_PUBLIC_BASE_URL ?? "https://iwsl.vercel.app",
-    title: "IW ShortLink — Modern Short URLs",
+    title: "IW ShortLink by Irfanwork",
     description:
       "Buat shortlink modern, pantau statistik, dan identifikasi pengguna dengan aman & efisien.",
     siteName: "IW ShortLink",

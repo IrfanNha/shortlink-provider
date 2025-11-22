@@ -1,8 +1,9 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { Menu, Home, LayoutDashboard, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/contexts/theme-context";
 
 import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
@@ -15,11 +16,24 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import type { LucideIcon } from "lucide-react";
 
-const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "https://irfanwork.vercel.app", label: "Irfanwork", external: true },
+type NavLink = {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  external?: boolean;
+};
+
+const NAV_LINKS: NavLink[] = [
+  { href: "/", label: "Home", icon: Home },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  {
+    href: "https://irfanwork.vercel.app",
+    label: "Irfanwork",
+    icon: ExternalLink,
+    external: true
+  },
 ];
 
 const THEME_LABELS: Record<string, string> = {
@@ -30,9 +44,16 @@ const THEME_LABELS: Record<string, string> = {
 
 export function SiteNavbar() {
   const { theme } = useTheme();
+  const pathname = usePathname();
 
-  // Tentukan logo berdasarkan tema
   const logoSrc = theme === "noir" ? "/logo/light.png" : "/logo/dark.png";
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
+  };
 
   return (
     <header className="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-surface)]/90 backdrop-blur">
@@ -54,27 +75,34 @@ export function SiteNavbar() {
 
         {/* === DESKTOP NAV === */}
         <nav className="hidden items-center gap-6 text-sm font-medium text-[var(--color-muted)] md:flex">
-          {NAV_LINKS.map(({ href, label, external }) =>
-            external ? (
+          {NAV_LINKS.map(({ href, label, icon: Icon, external }) => {
+            const active = !external && isActive(href);
+
+            return external ? (
               <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="transition hover:text-[var(--color-text)]"
+                className="flex items-center gap-2 transition hover:text-[var(--color-text)]"
               >
+                <Icon className="h-4 w-4" />
                 {label}
               </a>
             ) : (
               <Link
                 key={label}
                 href={href}
-                className="transition hover:text-[var(--color-text)]"
+                className={`flex items-center uppercase gap-2 transition hover:text-[var(--color-text)] ${active
+                  ? "text-[var(--color-text)] font-semibold relative after:absolute after:bottom-[-20px] after:left-0 after:right-0 after:h-0.5 after:bg-[var(--color-primary)]"
+                  : ""
+                  }`}
               >
+                <Icon className="h-4 w-4" />
                 {label}
               </Link>
-            )
-          )}
+            );
+          })}
         </nav>
 
         {/* === RIGHT SIDE === */}
@@ -91,16 +119,19 @@ export function SiteNavbar() {
               <SheetHeader className="text-left">
                 <SheetTitle>Navigation</SheetTitle>
               </SheetHeader>
-              <div className="flex flex-col gap-4">
-                {NAV_LINKS.map(({ href, label, external }) =>
-                  external ? (
+              <div className="flex flex-col gap-4 mt-6">
+                {NAV_LINKS.map(({ href, label, icon: Icon, external }) => {
+                  const active = !external && isActive(href);
+
+                  return external ? (
                     <SheetClose asChild key={label}>
                       <a
                         href={href}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)] transition hover:text-[var(--color-text)]"
+                        className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)] transition hover:text-[var(--color-text)]"
                       >
+                        <Icon className="h-5 w-5" />
                         {label}
                       </a>
                     </SheetClose>
@@ -108,13 +139,17 @@ export function SiteNavbar() {
                     <SheetClose asChild key={label}>
                       <Link
                         href={href}
-                        className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)] transition hover:text-[var(--color-text)]"
+                        className={`flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.3em] transition hover:text-[var(--color-text)] ${active
+                          ? "text-[var(--color-text)] border-l-2 border-[var(--color-primary)] pl-3 -ml-3"
+                          : "text-[var(--color-muted)]"
+                          }`}
                       >
+                        <Icon className="h-5 w-5" />
                         {label}
                       </Link>
                     </SheetClose>
-                  )
-                )}
+                  );
+                })}
               </div>
               <div className="mt-8 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-soft)] p-4 text-xs text-[var(--color-muted-strong)]">
                 <p className="font-semibold uppercase tracking-[0.4em] text-[var(--color-muted)]">

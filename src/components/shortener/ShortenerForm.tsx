@@ -65,7 +65,7 @@ export function ShortenerForm() {
       };
 
       if (!response.ok) {
-        throw new Error(data.error ?? "Gagal membuat shortlink");
+        throw new Error(data.error ?? "Failed to create shortlink");
       }
 
       setResult(data);
@@ -73,7 +73,7 @@ export function ShortenerForm() {
       void mutate(`/api/stats?visitorId=${visitorId}`);
     } catch (err) {
       console.error(err);
-      setError(err instanceof Error ? err.message : "Terjadi kesalahan");
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setIsSubmitting(false);
     }
@@ -89,7 +89,7 @@ export function ShortenerForm() {
       setHasCopied(true);
       setTimeout(() => setHasCopied(false), 1500);
     } catch {
-      setError("Tidak dapat menyalin link. Salin manual saja ya!");
+      setError("Cannot copy link. Please copy manually!");
     }
   }
 
@@ -100,8 +100,8 @@ export function ShortenerForm() {
           Shorten URL
         </CardTitle>
         <CardDescription className="text-sm leading-relaxed text-[var(--color-muted)]">
-          Tempelkan URL panjangmu, dapatkan shortlink instan, dan lihat pratinjau
-          destinasinya sebelum dibagikan.
+          Paste your long URL, get an instant shortlink, and preview the
+          destination before sharing.
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
@@ -113,7 +113,7 @@ export function ShortenerForm() {
           <Input
             value={url}
             onChange={(event) => setUrl(event.target.value)}
-            placeholder="https://contoh.com/produk/123"
+            placeholder="https://example.com/product/123"
             className="h-12 rounded-md border-[var(--color-border-strong)] bg-[var(--color-surface-soft)] text-base text-[var(--color-text)] focus-visible:border-[var(--color-accent)] focus-visible:ring-[var(--color-accent)]"
             type="url"
             required

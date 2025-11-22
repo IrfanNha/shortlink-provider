@@ -26,9 +26,9 @@ export function SiteFooter() {
             Irfanwork
           </p>
           <p className="text-sm leading-relaxed">
-            IW ShortLink adalah produk internal Irfanwork untuk mengelola
-            distribusi link pendek dengan pengalaman yang elegan, minimalis, dan
-            ramah kolaborasi.
+            IW ShortLink is an internal Irfanwork product for managing
+            short link distribution with an elegant, minimalist, and
+            collaboration-friendly experience.
           </p>
         </div>
         <div className="space-y-3">

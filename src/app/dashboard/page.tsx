@@ -39,8 +39,8 @@ export default function DashboardPage() {
               Dashboard
             </h1>
             <p className="text-sm text-[var(--color-muted-strong)] md:text-base">
-              Pantau performa shortlink kamu secara real-time, salin visitor ID,
-              dan kelola distribusi link dengan percaya diri.
+              Monitor your shortlink performance in real-time, copy visitor ID,
+              and manage link distribution with confidence.
             </p>
           </div>
 
@@ -48,17 +48,17 @@ export default function DashboardPage() {
             <MetricCard
               label="Total Links"
               value={links?.length ?? 0}
-              hint="Jumlah shortlink aktif milikmu."
+              hint="Number of your active shortlinks."
             />
             <MetricCard
               label="Total Clicks"
               value={totalClicks}
-              hint="Akumulasi klik dari semua link."
+              hint="Total clicks from all links."
             />
             <MetricCard
               label="Status"
               value={isFetching ? "SYNCING" : "LIVE"}
-              hint={isFetching ? "Memperbarui statistik..." : "Data terbaru."}
+              hint={isFetching ? "Updating statistics..." : "Latest data."}
             />
           </div>
         </header>
@@ -66,7 +66,7 @@ export default function DashboardPage() {
         <section className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">
-              Terbaru
+              Latest
             </h2>
             <Button
               type="button"
@@ -146,7 +146,7 @@ function SkeletonCard() {
 function EmptyState() {
   return (
     <div className="animate-fade-up rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--color-surface-soft)] px-6 py-10 text-center text-sm text-[var(--color-muted-strong)]">
-      Belum ada shortlink. Ayo buat shortlink pertama melalui halaman utama!
+      No shortlinks yet. Create your first shortlink from the home page!
     </div>
   );
 }
