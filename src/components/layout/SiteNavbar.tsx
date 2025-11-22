@@ -30,7 +30,7 @@ const NAV_LINKS: NavLink[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   {
     href: "https://irfanwork.vercel.app",
-    label: "Irfanwork",
+    label: "IRFANWORK",
     icon: ExternalLink,
     external: true
   },
