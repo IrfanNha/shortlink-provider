@@ -1,3 +1,5 @@
+import { ensureServerSide } from "./proxy";
+
 export type ShortlinkRecord = {
   id: string;
   code: string;
@@ -21,15 +23,12 @@ export type ShortlinkUpdatePayload = Partial<
   Pick<ShortlinkRecord, "originalUrl" | "clickCount" | "lastClickedAt">
 >;
 
-/**
- * Get MOCKAPI_BASE safely from env
- * Throws error if env is not set
- */
+
 function getMockApiBase(): string {
-  const base = process.env.NEXT_PUBLIC_MOCKAPI_URL;
+  const base = process.env.MOCKAPI_URL;
   if (!base) {
     throw new Error(
-      "Environment variable NEXT_PUBLIC_MOCKAPI_URL is not set. Please add it to .env.local"
+      "Environment variable MOCKAPI_URL is not set. Please add it to .env.local"
     );
   }
   return base;
@@ -58,6 +57,9 @@ async function safeReadErrorMessage(
 }
 
 async function request<T>(endpoint: string, init?: RequestInit): Promise<T> {
+  // Ensure this function is only called server-side
+  ensureServerSide('mockapi.request');
+
   const url = buildUrl(endpoint);
   const response = await fetch(url, {
     headers: {
@@ -71,8 +73,7 @@ async function request<T>(endpoint: string, init?: RequestInit): Promise<T> {
   if (!response.ok) {
     const message = await safeReadErrorMessage(response);
     throw new Error(
-      `MockAPI request failed (${response.status}) for ${url}: ${
-        message ?? response.statusText
+      `MockAPI request failed (${response.status}) for ${url}: ${message ?? response.statusText
       }`
     );
   }
@@ -103,8 +104,7 @@ export async function getLinkByCode(
   if (!response.ok) {
     const message = await safeReadErrorMessage(response);
     throw new Error(
-      `MockAPI request failed (${response.status}) for ${url}: ${
-        message ?? response.statusText
+      `MockAPI request failed (${response.status}) for ${url}: ${message ?? response.statusText
       }`
     );
   }
@@ -137,8 +137,7 @@ export async function getLinksByVisitor(
   if (!response.ok) {
     const message = await safeReadErrorMessage(response);
     throw new Error(
-      `MockAPI request failed (${response.status}) for ${url}: ${
-        message ?? response.statusText
+      `MockAPI request failed (${response.status}) for ${url}: ${message ?? response.statusText
       }`
     );
   }

@@ -56,7 +56,7 @@ export function LinkPreviewCard({ link }: LinkPreviewCardProps) {
         <CardTitle className="text-lg font-semibold text-[var(--color-text)]">
           {hostname}
         </CardTitle>
-        <p className="break-words text-sm text-[var(--color-muted)]">
+        <p className="line-clamp-2 break-all text-sm leading-relaxed text-[var(--color-muted)]" title={link.originalUrl}>
           {link.originalUrl}
         </p>
       </CardHeader>

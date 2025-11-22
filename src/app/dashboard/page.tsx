@@ -63,58 +63,6 @@ export default function DashboardPage() {
           </div>
         </header>
 
-        <Card className="border border-[var(--color-border)] bg-[var(--color-surface)] shadow-md">
-          <CardHeader className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div>
-              <CardTitle className="text-sm uppercase tracking-[0.3em] text-[var(--color-muted)]">
-                Visitor ID
-              </CardTitle>
-              <p className="text-xs text-[var(--color-muted-strong)]">
-                Gunakan Visitor ID ini untuk mengakses data statistik dari
-                perangkat ini.
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                className="rounded-md border-[var(--color-border-strong)] text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-text)] hover:bg-[var(--color-surface-soft)]"
-                onClick={() => {
-                  void refresh();
-                  void mutate();
-                }}
-              >
-                Refresh
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="rounded-md border-[var(--color-accent)] text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-surface)]"
-                onClick={async () => {
-                  if (!visitorId) return;
-                  if (typeof navigator === "undefined" || !navigator.clipboard) {
-                    return;
-                  }
-                  await navigator.clipboard.writeText(visitorId);
-                }}
-                disabled={!visitorId}
-              >
-                Copy
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="rounded-md border border-dashed border-[var(--color-border)] bg-[var(--color-surface-soft)] px-4 py-3 font-mono text-sm text-[var(--color-text)]">
-              {loading ? "Memuat Visitor ID..." : visitorId ?? "—"}
-            </div>
-            {effectiveError && (
-              <p className="mt-3 text-sm text-[var(--color-warning)]">
-                {effectiveError}
-              </p>
-            )}
-          </CardContent>
-        </Card>
-
         <section className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">

@@ -10,6 +10,7 @@ function jsonFetcher<T>(input: string, init?: RequestInit): Promise<T> {
   return fetch(input, {
     headers: {
       "Content-Type": "application/json",
+      "x-requested-with": "XMLHttpRequest",
       ...(init?.headers ?? {}),
     },
     ...init,

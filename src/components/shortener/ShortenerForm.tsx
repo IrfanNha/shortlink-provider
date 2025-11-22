@@ -52,6 +52,7 @@ export function ShortenerForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-requested-with": "XMLHttpRequest",
         },
         body: JSON.stringify({
           url,

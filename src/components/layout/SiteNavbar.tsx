@@ -32,7 +32,7 @@ export function SiteNavbar() {
   const { theme } = useTheme();
 
   // Tentukan logo berdasarkan tema
-  const logoSrc = theme === "noir" ? "/logo/light.png" : "/dark.png";
+  const logoSrc = theme === "noir" ? "/logo/light.png" : "/logo/dark.png";
 
   return (
     <header className="sticky top-0 z-30 border-b border-[var(--color-border)] bg-[var(--color-surface)]/90 backdrop-blur">
